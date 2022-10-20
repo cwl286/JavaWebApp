@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Hong Kong Public Holidays <Datag></Datag>
+    </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="https://colorlib.com/etc/tb/Table_Fixed_Header/images/icons/favicon.ico">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/perfect-scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <meta name="robots" content="noindex, follow">
+    <!-- bootstrap-datepicker -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-datepicker.css">
+</head>
+
+<body>
+
+    <div class="limiter">
+        <header>
+            <div class="p-5 text-center bg-light">
+                <h1 style="text-align:left" class="mb-3">Wai Lok</h1>
+            </div>
+        </header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarExample01">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="getData">Get Data</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <form action="#" class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="nav-link" for="input_from">From</label>
+                                        <input type="text" class="form-control" id="startDate">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="nav-link" for="input_to">To</label>
+                                        <input type="text" class="form-control" id="endDate">
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="searchData">Search</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="table100 ver1 m-b-110">
+            <div class="table100-head">
+                <table>
+                    <thead>
+                        <tr class="row100 head">
+                            <th class="cell100 column1">UID</th>
+                            <th class="cell100 column2">Start Date (MM/DD/YYYY)</th>
+                            <th class="cell100 column3">End Date (MM/DD/YYYY)</th>
+                            <th class="cell100 column4">Summary</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="table100-body js-pscroll ps ps--active-y">
+                <table id="searchResultTable">
+                    <tbody>
+                        <tr class="row100 body">
+                            <td class="cell100 column1">012345678</td>
+                            <td class="cell100 column2">01/01/2021</td>
+                            <td class="cell100 column3">01/01/2022</td>
+                            <td class="cell100 column4">New Year</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                    <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                </div>
+                <div class="ps__rail-y" style="top: 0px; height: 585px; right: 5px;">
+                    <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 293px;"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="/js/jquery-3.6.1.min.js"></script>
+        <script src="/js/popper.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/select2.min.js"></script>
+        <script src="/js/perfect-scrollbar.min.js"></script>
+        <script>
+            $('.js-pscroll').each(function () {
+                var ps = new PerfectScrollbar(this);
+
+                $(window).on('resize', function () {
+                    ps.update();
+                })
+            });
+        </script>
+        <script src="/js/main.js"></script>
+
+
+        <!-- Get Data handle href="#" -->
+        <script>
+            $('#getData').click(function () {
+                $('#searchResultTable tbody').empty();
+                $.ajax({
+                    url: "/index/getData",
+                    type: "POST",
+                    contentType: "application/json"
+                }).done(function (arr) {
+                    console.log(arr);
+                    arr.sort((a, b) => { return (new Date(a.dtstart) < new Date(b.dtstart)) ? -1 : 1; });
+                    arr.forEach(element => {
+                        $("#searchResultTable tbody").append("<tr > class='row100 body'" +
+                            "<td class='cell100 column1'>" + element.uid + "</td>" +
+                            "<td class='cell100 column2'>" + element.dtstart + "</td>" +
+                            "<td class='cell100 column3'>" + element.dtend + "</td>" +
+                            "<td class='cell100 column4'>" + element.summary + "</td>" +
+                            "</tr>");
+                    });
+                });
+
+            });
+        </script>
+        <!-- bootstrap-datepicker -->
+        <script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="/js/bootstrap-datepicker.en-GB.min.js"></script>
+        <script>
+            $('#startDate').datepicker();
+            $('#endDate').datepicker();
+
+            $('#searchData').click(function () {
+                const startDateVal = $('#startDate').val();
+                const endDateVal = $('#endDate').val()
+                const startDate = new Date(startDateVal);
+                const endDate = new Date(endDateVal);
+                
+                if (!startDateVal || !endDateVal) {
+                    alert('Please select From and To Dates');
+                } else if (startDate > endDate) {
+                    alert('From should be earlier than To ');
+                } else {
+                    // check current start date > search start date
+                    $('#searchResultTable tbody tr').each(function () {
+                        const currStartDate = $(this).children(".column2").text();
+                        const currEndDate = $(this).children(".column3").text();
+                        if (currStartDate && currEndDate
+                            && new Date(currStartDate) > startDate
+                            && new Date(currEndDate) < endDate) {
+                            $(this).show();    
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
+            });
+        </script>
+</body>
+
+</html>
