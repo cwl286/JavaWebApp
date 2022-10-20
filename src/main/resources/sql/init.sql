@@ -3,9 +3,6 @@
 CREATE DATABASE TestDB; 
 USE TestDB;
 
-
-
-
 /* Create Holidays table manually */
 
 /*

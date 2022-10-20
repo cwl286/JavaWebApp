@@ -38,9 +38,9 @@ RootPassword: Password <br/>
 5a. To create database in MySQL, use container shell  in terminal
 ``` 
 docker exec -it some-mysql bash
-mysql -uroot -p$Password -e "CREATE DATABASE TestDB"
+mysql -uroot --password=Password -e "CREATE DATABASE TestDB"
 // Enter password:Password
-mysql -uroot -p$Password -e "USE TestDB"
+mysql -uroot --password=Password -e "USE TestDB"
 // Enter password:Password
 ```
 
@@ -109,3 +109,15 @@ Day 3
 - Wanted to create docker-compose to provide an one-step application image but seemed not enough time
 
 
+
+
+
+```
+docker build -t  javawebppdemo:1.0 .
+docker images
+
+//  --net="jost", then the localhost in your docker container will point to your docker host.
+docker run -it --add-host=host.docker.internal:host-gateway --name javawebppdemo javawebppdemo:1.0 bash
+```
+
+ java -jar demo-1.jar

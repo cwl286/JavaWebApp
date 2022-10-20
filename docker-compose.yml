@@ -1,0 +1,32 @@
+version: "1.0"
+services:
+    web:
+        build: 
+            context: .
+            # Copay host /target in Dockerfile to container /target
+            dockerfile: Dockerfile
+        restart: always
+        ports:
+          # <Port for hosts> : < Port for containers>
+            - '8888:80'
+        command: "java -jar /target/demo-1.jar"
+        # Define extra aliases
+        links:
+            - "db:database"
+        # Define the order to build docker
+        depends_on:
+            - db
+    db:
+        image: mysql
+        restart: always
+        environment:        
+          ACCEPT_EULA: "Y"
+          MYSQL_ROOT_PASSWORD: "Password"
+        ports:
+          # <Port for hosts> : < Port for containers>
+          - "13306:3306"
+        volumes:
+          # Copy src from the host to the container 
+          - ./src/main/java/resources/sql:/sql
+        command: sh -c "chmod +x ./entrypoint.sh; ./entrypoint.sh &  /opt/mssql/bin/sqlservr;"
+        working_dir: /sql

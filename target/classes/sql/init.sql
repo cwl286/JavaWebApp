@@ -1,10 +1,7 @@
 /* Create database */
 
-CREATE DATABASE TestDB;
+CREATE DATABASE TestDB; 
 USE TestDB;
-
-
-
 
 /* Create Holidays table manually */
 
