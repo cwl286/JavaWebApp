@@ -28,14 +28,14 @@ docker pull mysql
 docker run -p 13306:3306 --name some-mysql -e MYSQL_ROOT_PASSWORD=Password -d mysql:latest
 ```
 ***Information about the MySQL intance:***
-mysqlname: some-mysql
-Host:127.0.0.1
-Client port:13306
-containers port:3306
-Username: root
-RootPassword: Password
+mysqlname: some-mysql <br/> 
+Host:127.0.0.1 <br/>
+Client port:13306 <br/>
+containers port:3306 <br/>
+Username: root <br/>
+RootPassword: Password <br/>
 
-5a. Container shell access in terminal
+5a. To create database in MySQL, use container shell  in terminal
 ``` 
 docker exec -it some-mysql bash
 mysql -uroot -p$Password -e "CREATE DATABASE TestDB"
@@ -44,7 +44,7 @@ mysql -uroot -p$Password -e "USE TestDB"
 // Enter password:Password
 ```
 
-5b. (Or) Use MySQL Client application to access the running MySQL instance
+5b. (Or) Use any MySQL Client application to access the running MySQL instance
 
 ```
 // Create database
@@ -101,11 +101,11 @@ Day 2:
 
 Day 3
 - Created and prepare Mysql docker image
-- Connected Java web application to Mysql insteal of return json data on the fly
+- Connected Java web application to Mysql instead of returning json data on the fly
 - Exported to jar by referencing here [https://www.codejava.net/frameworks/spring-boot/how-to-package-spring-boot-application-to-jar-and-war](https://www.codejava.net/frameworks/spring-boot/how-to-package-spring-boot-application-to-jar-and-war)
 - Updated test classes from MockMvc to SpringBootTest
-- Created Wireframe
+- Created a Wireframe
 - Updated README about how to compile and run the application.
-- Wanted to create docker-compose to provide one-step application image but seemed not enough time
+- Wanted to create docker-compose to provide an one-step application image but seemed not enough time
 
 
