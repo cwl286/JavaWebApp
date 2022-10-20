@@ -112,12 +112,3 @@ Day 3
 
 
 
-```
-docker build -t  javawebppdemo:1.0 .
-docker images
-
-//  --net="jost", then the localhost in your docker container will point to your docker host.
-docker run -it --add-host=host.docker.internal:host-gateway --name javawebppdemo javawebppdemo:1.0 bash
-```
-
- java -jar demo-1.jar
