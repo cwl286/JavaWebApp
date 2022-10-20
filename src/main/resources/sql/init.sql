@@ -1,6 +1,6 @@
 /* Create database */
 
-CREATE DATABASE TestDB;
+CREATE DATABASE TestDB; 
 USE TestDB;
 
 
