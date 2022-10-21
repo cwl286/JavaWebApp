@@ -50,7 +50,8 @@ mysql -uroot --password=Password -e "USE TestDB"
 // Create database
 CREATE DATABASE TestDB;
 USE TestDB;
-
+// To exit container shell, type: 
+exit
 ```
 
 ***To Run***
@@ -96,6 +97,7 @@ Day 2:
         - apikey: AbHTJFYu0QDsr9u6Ax0i 
         - url:  API Strings generated from [https://data.gov.hk/en-data/dataset/hk-effo-statistic-cal](https://data.gov.hk/en-data/dataset/hk-effo-statistic-cal)
         - My api output: uid, dtstart(MM/DD/YYYY), dtednd(MM/DD/YYYY), summary
+        - ***Note: it takes a few second to wake up the API image first, and hence "Get data" takes a few second to load***
 - Add Jquery to filter the holidays by range
  
 
@@ -106,8 +108,7 @@ Day 3
 - Updated test classes from MockMvc to SpringBootTest
 - Created a Wireframe
 - Updated README about how to compile and run the application.
-- Wanted to create docker-compose to provide an one-step application image but seemed not enough time
-
+- Tried to create docker-compose to provide an one-step application image but not enough time to complete all
 
 
 
